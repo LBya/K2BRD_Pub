@@ -1,0 +1,30 @@
+services:
+  backend:
+    build:
+      context: ./api/backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount source code for live-reloading during development
+      - ./api/backend/src:/app/src
+    environment:
+      - DEV_MODE=true
+    env_file:
+      - ./api/backend/src/.env
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  frontend:
+    build:
+      context: ./api/frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173" # Expose Vite's dev server port
+    volumes:
+      - ./api/frontend:/app # Mount source code for hot-reloading
+      - /app/node_modules   # Prevent host node_modules from overwriting container's
+    command: ["npm", "run", "dev", "--", "--host"]
+    depends_on:
+      - backend
+
+# Note: For this to work, you will need to create a .env file
+# in the /api/backend/ directory with your API keys and tokens. 

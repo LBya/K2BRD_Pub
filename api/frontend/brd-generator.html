@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRD Generator - K2BRD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <!-- <button id="darkModeToggle" class="btn btn-dark">Dark Mode</button> -->
+
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <!-- Navigation -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>BRD Generator</h1>
+            <a href="/index.html" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+
+        <!-- System Logs -->
+        <log-viewer></log-viewer>
+
+        <div class="row">
+            <!-- Selected Cards Preview (Left Side) -->
+            <div class="col-md-5 border-end">
+                <h4 class="mb-3">Selected Cards</h4>
+                <div id="selectedCardsPreview" class="overflow-auto" style="max-height: 70vh;"></div>
+            </div>
+            
+            <!-- BRD Editor (Right Side) -->
+            <div class="col-md-7" id="brdEditorContainer">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="btn-group">
+                        <button id="generateBrd" class="btn btn-primary">
+                            <i class="bi bi-magic"></i> Generate BRD
+                        </button>
+                        <button id="exportAllBrd" class="btn btn-secondary" disabled>
+                            <i class="bi bi-download"></i> Export All
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab Navigation -->
+                <ul class="nav nav-tabs" id="brdTabs" role="tablist">
+                    <!-- Tabs will be dynamically added here -->
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="brdTabContent">
+                    <!-- Tab panes will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/src/brd-generator.js"></script>
+</body>
+</html> 

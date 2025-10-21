@@ -1,0 +1,43 @@
+# Python Bytecode and Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Virtual Environments
+.env
+env/
+.venv/
+venv/
+
+# Dependencies
+.eggs/
+*.egg-info/
+
+# Log Files
+*.log
+
+# Environment variables
+!/.env.example
+.env*
+
+
+# added from project_doc_gen.py
+**/secret.json
+**/__pycache__/*
+**/.venv/
+**/venv/
+**/.pytest_cache/
+**/node_modules/
+**/dist/
+**/build/
+**/.mypy_cache/
+**/.ruff_cache/
+cache/
+output/
+project_structure.md
+project_structure*.md
+/frontend/playwright-report/

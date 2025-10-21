@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K2BRD Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script type="module" src="/src/script.js"></script>
+
+    <!-- <button id="darkModeToggle" class="btn btn-dark">Dark Mode</button> -->
+
+
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <h1 class="mb-4">K2BRD Dashboard</h1>
+        
+        <div class="row">
+            <!-- Logging Section -->
+            <div class="col-12 mb-4">
+                <log-viewer></log-viewer>
+            </div>
+
+            <!-- Boards Section -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Trello Boards
+                    </div>
+                    <div class="card-body">
+                        <button id="getBoards" class="btn btn-primary mb-3">
+                            <i class="bi bi-trello"></i> Get All Boards
+                        </button>
+                        <div id="boardsList" class="boards-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards Section -->
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Board Cards</span>
+                        <div class="btn-group">
+                            <button id="getCards" class="btn btn-primary" disabled>
+                                <i class="bi bi-card-list"></i> Get All Cards
+                            </button>
+                            <button id="createCard" class="btn btn-success">
+                                <i class="bi bi-plus-lg"></i> New Card
+                            </button>
+                            <!-- <button id="exportCards" class="btn btn-secondary">
+                                <i class="bi bi-download"></i> Export Selected
+                            </button> -->
+                            <button id="generateBrd" class="btn btn-primary">
+                                <i class="bi bi-file-text"></i> Generate BRD
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="createCardForm" class="mb-3 d-none">
+                            <!-- Card creation form will be dynamically inserted here -->
+                        </div>
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-search"></i>
+                                </span>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search cards...">
+                            </div>
+                        </div>
+                        <div id="cardsList" class="cards-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template id="card-editor-template">
+        <div class="card">
+            <div class="card-body">
+                <!-- Card Name -->
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Card Name" data-field="name">
+                </div>
+                <!-- Project and List Name -->
+                <div class="row mb-3">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Project" data-field="project">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="List Name" data-field="list_name">
+                    </div>
+                </div>
+                <!-- Due Date and Effort -->
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label form-label-sm">Due Date</label>
+                        <input type="date" class="form-control form-control-sm" data-field="due_date">
+                    </div>
+                    <div class="col">
+                        <label class="form-label form-label-sm">Effort</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="e.g., 5" data-field="effort">
+                    </div>
+                </div>
+                <!-- Labels Section -->
+                <div class="labels-section mb-3" data-section="labels">
+                    <label class="form-label form-label-sm">Labels</label>
+                    <!-- Dynamic fields will be inserted here -->
+                    <button class="btn btn-sm btn-outline-secondary add-label">
+                        <i class="bi bi-plus"></i> Add Label
+                    </button>
+                </div>
+                <!-- Stakeholders Section -->
+                <div class="stakeholders-section mb-3" data-section="stakeholders">
+                    <label class="form-label form-label-sm">Stakeholders</label>
+                    <!-- Dynamic fields will be inserted here -->
+                    <button class="btn btn-sm btn-outline-secondary add-stakeholder">
+                        <i class="bi bi-plus"></i> Add Stakeholder
+                    </button>
+                </div>
+                <!-- GitHub Repo -->
+                <div class="mb-3">
+                    <label class="form-label form-label-sm">Repository URL</label>
+                    <input type="url" class="form-control form-control-sm" placeholder="https://github.com/user/repo" data-field="github_repo">
+                </div>
+                <!-- Impacted Assets Section -->
+                <div class="impacted_assets-section mb-3" data-section="impacted_assets">
+                    <label class="form-label form-label-sm">Impacted Assets</label>
+                    <!-- Dynamic fields will be inserted here -->
+                    <button class="btn btn-sm btn-outline-secondary add-asset">
+                        <i class="bi bi-plus"></i> Add Asset
+                    </button>
+                </div>
+                <!-- Description -->
+                <div class="mb-3">
+                    <label class="form-label form-label-sm">Description</label>
+                    <textarea class="form-control" rows="4" placeholder="Description (supports markdown)" 
+                              data-field="description"></textarea>
+                </div>
+                <!-- Action Buttons -->
+                <div class="text-end">
+                    <button class="btn btn-secondary cancel-edit">Cancel</button>
+                    <button class="btn btn-primary save-card">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
