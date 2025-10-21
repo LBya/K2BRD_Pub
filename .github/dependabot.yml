@@ -1,0 +1,5 @@
+updates:
+  - package-ecosystem: "npm"
+    directory: "/api/frontend"
+    schedule: { interval: "weekly" }
+    target-branch: "dev"
